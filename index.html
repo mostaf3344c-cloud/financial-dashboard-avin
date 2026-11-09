@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="آوین؛ داشبورد مالی فارسی با طراحی شیشه‌ای (Glassmorphism)، نمودارهای انیمیشنی، حالت تیره و روشن، ثبت تراکنش و ورود صورت‌حساب CSV/Excel.">
+<meta name="theme-color" content="#e8eefb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1f" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="داشبورد مالی آوین">
+<meta property="og:description" content="داشبورد مالی فارسی با طراحی شیشه‌ای، نمودارهای انیمیشنی و حالت تیره/روشن.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232a78d8'/%3E%3Cstop offset='1' stop-color='%237a5cf0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 42l12-12 9 9 15-17' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>داشبورد مالی آوین</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sprog" id="sp" aria-hidden="true"></div>
+<div class="mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="app">
+  <aside class="side glass rise" style="--i:0" aria-label="منوی اصلی">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-6 4 3 7-9"/><path d="M15 5h5v5"/></svg></div>
+      <span>آوین</span>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <b>بودجه ماهانه</b>
+      <span id="sb-txt"></span>
+      <div class="bar"><span id="sb-bar"></span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top rise" style="--i:1">
+      <div class="ttl">
+        <h1>نمای کلی مالی</h1>
+        <div class="sub" id="today"></div>
+      </div>
+      <label class="search"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">جستجو</span>
+        <input id="q" type="search" placeholder="جستجو در تراکنش‌ها…">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </label>
+      <div class="seg" id="range" role="group" aria-label="بازه زمانی">
+        <button data-r="7" aria-pressed="false">۷ روز</button>
+        <button data-r="30" aria-pressed="false">۳۰ روز</button>
+        <button data-r="365" aria-pressed="true">۱۲ ماه</button>
+      </div>
+      <button class="ibtn" id="add-tx" type="button" data-act="add-tx" aria-label="افزودن تراکنش" title="افزودن تراکنش"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="ibtn theme" id="theme" aria-label="تغییر حالت تیره/روشن" title="تیره / روشن">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="ibtn" id="bell" type="button" aria-label="اعلان‌ها" aria-haspopup="dialog" aria-expanded="false" aria-controls="nmenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10.3 21a1.9 1.9 0 003.4 0"/></svg>
+        <span class="dot"></span>
+      </button>
+      <div class="uwrap">
+        <button class="user" id="user-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="umenu"><div class="av">ن</div><div class="ut"><b>نیما کاظمی</b><small>حساب کسب‌وکار</small></div><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      </div>
+    </header>
+
+    <div class="view" id="v-dashboard">
+    <div id="d-banner"></div>
+    <section class="kpis" id="kpis" aria-label="شاخص‌های کلیدی"></section>
+
+    <section class="row2">
+      <article class="card glass rise" style="--i:6">
+        <div class="head">
+          <div>
+            <h2>درآمد و هزینه</h2>
+            <p id="chart-sub">میلیون تومان</p>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <div class="legend">
+              <span><i style="background:var(--s1)"></i>درآمد</span>
+              <span><i style="background:var(--s2)"></i>هزینه</span>
+            </div>
+            <button class="link-btn" id="viewtoggle" aria-pressed="false">نمایش جدول</button>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div id="chart" role="img" aria-label="نمودار خطی درآمد و هزینه در بازه انتخاب‌شده"></div>
+          <div class="tip" id="tip"></div>
+        </div>
+        <div class="tbl" id="chart-table" hidden></div>
+      </article>
+
+      <article class="card glass rise" style="--i:7">
+        <div class="head"><div><h2>سهم هزینه‌ها</h2><p id="donut-sub"></p></div></div>
+        <div class="donut-box">
+          <div class="donut">
+            <svg viewBox="0 0 200 200" id="donut"></svg>
+            <div class="mid"><small id="d-name">مجموع هزینه</small><b id="d-val">۰</b><em id="d-pct">میلیون تومان</em></div>
+          </div>
+          <div class="cats" id="cats"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="row3">
+      <article class="card glass rise" style="--i:8">
+        <div class="head">
+          <div><h2>تراکنش‌های اخیر</h2><p>آخرین گردش‌های حساب · <a href="#transactions" style="color:var(--accent);text-decoration:none;font-weight:600">مشاهده همه</a></p></div>
+          <div class="chips" id="chips">
+            <button data-f="all" aria-pressed="true">همه</button>
+            <button data-f="in" aria-pressed="false">درآمد</button>
+            <button data-f="out" aria-pressed="false">هزینه</button>
+          </div>
+        </div>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>شرح</th><th>دسته</th><th>تاریخ</th><th>وضعیت</th><th class="num">مبلغ (م.ت)</th></tr></thead>
+            <tbody id="txb"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <div class="stack">
+        <div id="d-card" class="rise" style="--i:9"></div>
+        <article class="card glass rise" style="--i:10">
+          <div class="head" style="margin-bottom:6px"><div><h2>اهداف پس‌انداز</h2></div></div>
+          <div id="goals"></div>
+        </article>
+      </div>
+    </section>
+    </div>
+    <div class="view" id="v-transactions" hidden></div>
+    <div class="view" id="v-cards" hidden></div>
+    <div class="view" id="v-budget" hidden></div>
+    <div class="view" id="v-reports" hidden></div>
+    <div class="view" id="v-prefs" hidden></div>
+        <div class="umenu nmenu glass" id="nmenu" role="dialog" aria-label="اعلان‌ها" hidden></div>
+        <div class="umenu glass" id="umenu" role="menu" hidden><div class="ulabel">حساب‌ها</div><div id="umenu-list"></div><button type="button" class="uitem add" id="u-add" role="menuitem">+ افزودن کاربر جدید</button></div>
+    <div class="modal" id="umodal" hidden><div class="mbox glass" role="dialog" aria-modal="true" aria-labelledby="um-t"><h2 id="um-t" style="margin:0 0 4px;font-size:18px">افزودن کاربر جدید</h2><p style="margin:0 0 16px;color:var(--fg3);font-size:13px">برای هر کاربر، داشبورد و صفحه‌های جداگانه ساخته می‌شود. حساب جدید خالی شروع می‌کند و تراکنش‌ها را خودتان ثبت یا از صورت‌حساب وارد می‌کنید.</p><form id="uform" class="form" novalidate><div class="field full"><label for="um-name">نام و نام خانوادگی</label><input class="inp" id="um-name" maxlength="30" autocomplete="off"></div><div class="field full"><label for="um-role">نوع حساب</label><select class="inp" id="um-role"><option>حساب شخصی</option><option>حساب کسب‌وکار</option><option>حساب خانوادگی</option><option>حسابدار</option></select></div><div class="full"><div id="um-err" role="alert" style="color:var(--bad);font-size:13px;min-height:20px"></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">افزودن و رفتن به حساب</button><button class="btn ghost" type="button" id="um-cancel" data-close>انصراف</button></div></div></form></div></div>
+    <div class="modal" id="txmodal" hidden><div class="mbox glass" role="dialog" aria-modal="true" aria-labelledby="tx-t"><h2 id="tx-t" style="margin:0 0 14px;font-size:18px">افزودن تراکنش</h2><form id="txform" class="form" novalidate>
+      <div class="field full"><div class="seg" id="tx-type" role="group" aria-label="نوع تراکنش"><button type="button" data-t="out" aria-pressed="true">هزینه</button><button type="button" data-t="in" aria-pressed="false">درآمد</button></div></div>
+      <div class="field"><label for="tx-amt">مبلغ</label><input class="inp" id="tx-amt" inputmode="decimal" autocomplete="off" placeholder="مثلاً 1500000"></div>
+      <div class="field"><label for="tx-unit">واحد</label><select class="inp" id="tx-unit"><option value="0.000001">تومان</option><option value="1">میلیون تومان</option></select></div>
+      <div class="field"><label for="tx-cat">دسته</label><input class="inp" id="tx-cat" list="tx-cats" maxlength="30" autocomplete="off" placeholder="مثلاً خوراک و خرید"><datalist id="tx-cats"></datalist></div>
+      <div class="field"><label for="tx-date">تاریخ (شمسی)</label><input class="inp" id="tx-date" dir="ltr" style="text-align:right" autocomplete="off" placeholder="1405/08/10"></div>
+      <div class="field"><label for="tx-name">شرح (اختیاری)</label><input class="inp" id="tx-name" maxlength="60" autocomplete="off"></div>
+      <div class="field"><label for="tx-st">وضعیت</label><select class="inp" id="tx-st"><option value="ok">تکمیل‌شده</option><option value="pend">در انتظار</option><option value="fail">ناموفق</option></select></div>
+      <div class="full"><div id="tx-err" role="alert" style="color:var(--bad);font-size:13px;min-height:20px"></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">ثبت تراکنش</button><button class="btn ghost" type="button" data-close>انصراف</button></div></div></form></div></div>
+    <div class="modal" id="immodal" hidden><div class="mbox wide glass" role="dialog" aria-modal="true" aria-labelledby="im-t"><h2 id="im-t" style="margin:0 0 4px;font-size:18px">وارد کردن صورت‌حساب</h2><p style="margin:0 0 14px;color:var(--fg3);font-size:13px">فایل CSV یا اکسل (xlsx) بانک را انتخاب کنید. فایل فقط در همین مرورگر خوانده می‌شود و جایی ارسال نمی‌شود.</p>
+      <div class="field"><label for="im-file">فایل صورت‌حساب</label><input class="inp" type="file" id="im-file" accept=".csv,.tsv,.txt,.xlsx,.xls" style="height:auto;padding:9px 12px"></div>
+      <div id="im-map" hidden style="margin-top:14px"><div class="form">
+        <div class="field"><label for="im-date">ستون تاریخ</label><select class="inp" id="im-date"></select></div>
+        <div class="field"><label for="im-desc">ستون شرح</label><select class="inp" id="im-desc"></select></div>
+        <div class="field"><label for="im-amt">ستون مبلغ (با علامت)</label><select class="inp" id="im-amt"></select></div>
+        <div class="field"><label for="im-deb">ستون برداشت / بدهکار</label><select class="inp" id="im-deb"></select></div>
+        <div class="field"><label for="im-cre">ستون واریز / بستانکار</label><select class="inp" id="im-cre"></select></div>
+        <div class="field"><label for="im-cat">ستون دسته (اختیاری)</label><select class="inp" id="im-cat"></select></div>
+        <div class="field full"><label for="im-unit">واحد مبلغ در فایل</label><select class="inp" id="im-unit"><option value="0.0000001">ریال</option><option value="0.000001">تومان</option><option value="1">میلیون تومان</option></select></div></div>
+        <p style="margin:10px 0 6px;color:var(--fg3);font-size:12.5px">اگر ستون مبلغ علامت منفی ندارد، به‌جای آن ستون‌های برداشت و واریز را انتخاب کنید. <b id="im-sum" style="color:var(--fg)"></b></p>
+        <div class="tbl"><table><thead><tr><th>تاریخ</th><th>شرح</th><th>دسته</th><th class="num">مبلغ (م.ت)</th></tr></thead><tbody id="im-prev"></tbody></table></div></div>
+      <div id="im-err" role="alert" style="color:var(--bad);font-size:13px;min-height:20px;margin-top:8px"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px"><button class="btn" type="button" id="im-go" disabled>وارد کردن</button><button class="btn ghost" type="button" data-close>انصراف</button></div></div></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
